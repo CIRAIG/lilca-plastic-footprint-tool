@@ -1,0 +1,22 @@
+[theme]
+base = "light"
+
+# --- CIRAIG accent colors -----------
+primaryColor = "#006f9f"              # --primary
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F5FAFF"  # 
+textColor = "#222222"                 # --muted
+linkColor = "#006f9f"                 # --primary
+linkUnderline = false
+codeTextColor = "#005379"             # --dark-blue-crg
+
+# --- Font: Inter, loaded the same way the Quarto book loads it ----
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+baseFontSize = 18                     # --font-size-root: 18px
+
+# --- CIRAIG color palette -
+chartCategoricalColors = ["#0bac43", "#7ac142", "#fa961e", "#e55c2b", "#b91e32"]
+
+[theme.sidebar]
+backgroundColor = "#FFFFFF"
+textColor = "#222222"
