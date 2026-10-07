@@ -1,6 +1,6 @@
 # LiLCA Plastic Footprint Tool
 
-A web application that helps life cycle assessment (LCA) practitioners estimate microplastic emissions and characterize their potential impacts on ecosystem quality. It is the companion tool to the [LiLCA (Litter Impacts in LCA) Plastic Footprint Guide](https://ciraig.github.io/marilca-practitioner-guide/).
+A web application that helps life cycle assessment (LCA) practitioners estimate macro- and microplastic emissions and characterize their potential impacts on ecosystem quality. It is the companion tool to the [LiLCA (Litter Impacts in LCA) Plastic Footprint Guide](https://ciraig.github.io/marilca-practitioner-guide/).
 
 **Live app:** <https://lilca-plastic-footprint-tool.streamlit.app>
 
@@ -17,7 +17,7 @@ The tool follows the plastic footprint definition used in the guide: (1) the mas
 
 ## Application modules
 
-Agriculture, Textiles and apparel, Fishing and gear, Packaging, Transport (tires) and Waste, aligned with the PFN sectors. See the app for the modules whose calculations are currently available.
+Agriculture, Textiles and apparel, Fishing and gear, Packaging, Transport (tires) and Waste, aligned with the PFN sectors. See the app for the modules whose calculations are currently available. Sectors can be added as additional LCI data become available.
 
 ## Uncertainty range
 
