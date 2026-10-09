@@ -146,7 +146,7 @@ section_header("guide")
 st.markdown(
 """
 This tool is designed to be used together with the 
-[LiLCA (Litter Impacts in LCA) Plastic Footprint Guide](https://ciraig.github.io/marilca-practitioner-guide/), 
+[LiLCA (Litter Impacts in LCA) Plastic Footprint Guide](https://ciraig.github.io/lilca-plastic-footprint-guide/), 
 which provides the methodological background and step-by-step support for assessing 
 plastic impacts in LCA, from the preparation of inventory flows to the interpretation of results.
 
