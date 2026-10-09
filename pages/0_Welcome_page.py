@@ -11,7 +11,7 @@ st.image("./assets/images/lilca_logo_tool.png", width=250)
 st.markdown(
 """
 This application is the companion tool to the 
-[LiLCA (Litter Impacts in LCA) Plastic Footprint Guide](https://ciraig.github.io/marilca-practitioner-guide/). 
+[LiLCA (Litter Impacts in LCA) Plastic Footprint Guide](https://ciraig.github.io/lilca-plastic-footprint-guide/). 
 It applies the methods described in the guide to calculate the **plastic footprint** of a product 
 or system, following the definition of Corella-Puertas et al. (2026):
 
@@ -99,7 +99,7 @@ At this stage, the CFs implemented cover only these physical effects on biota. O
 are not assessed by the tool, and additional CFs will be incorporated as they become available.
 
 The application is the companion tool to the 
-[LiLCA Plastic Footprint Guide](https://ciraig.github.io/marilca-practitioner-guide/) 
+[LiLCA Plastic Footprint Guide](https://ciraig.github.io/lilca-plastic-footprint-guide/) 
 and is intended to complement conventional LCA software. It does not replace the guide: 
 the guide explains when plastic impacts should be accounted for in a study, how to interpret 
 the results, and how to deal with uncertainties.
@@ -189,7 +189,7 @@ The estimation of plastic emissions builds on the work of the
 [Plastic Leak Project](https://quantis.com/services-solutions/consortium-building-and-management/plastic-leakage-project/), 
 which developed emission factors for activities and sectors prone to plastic leakage.
 
-This tool and the accompanying [LiLCA Plastic Footprint Guide](https://ciraig.github.io/marilca-practitioner-guide/) 
+This tool and the accompanying [LiLCA Plastic Footprint Guide](https://ciraig.github.io/lilca-plastic-footprint-guide/) 
 were developed to facilitate the practical implementation of these CFs within LCA studies. Their development 
 was made possible through the [generous support](https://www.polymtl.ca/carrefour-actualite/en/news/new-funding-will-help-accelerate-market-impact-research-plastics-environmental-impact) 
 of [Builders Vision Philanthropy](https://www.buildersvision.com/) to the Plastocene research initiative, 
