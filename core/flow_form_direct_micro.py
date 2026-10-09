@@ -143,7 +143,7 @@ def render_direct_micro_form(module_key):
 
         with st.expander(":material/image: Display a diagram of emission compartments", type="compact"):
                         # Define link section in the user's guide
-            link_env_compartment = "https://ciraig.github.io/marilca-practitioner-guide/03_applying-cfs-in-lca.html#environmental-compartment"
+            link_env_compartment = "https://ciraig.github.io/lilca-plastic-footprint-guide/03_applying-cfs-in-lca.html#environmental-compartment"
             st.markdown(f"You can also consult the [Environmental compartment]({link_env_compartment}) section of the user guide for the recommended alignment between PFN release compartments and those defined for MarILCA’s CFs.")
             st.image("./assets/images/emission_compartments.jpg")
             st.markdown("**Source**: [Louvet et al. (2026)](https://www.sciencedirect.com/science/article/pii/S0959652625025740)")
