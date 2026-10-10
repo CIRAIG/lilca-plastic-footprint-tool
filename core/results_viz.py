@@ -426,8 +426,11 @@ def sankey_lcia(lcia_df, selected_product, LCI_LCIA_COLOR_PALETTE, unit_lcia):
 #======================================================================================
 
 # Define a function to aggregate the LCIA results based on the selected grouping column.
-def aggregate_lcia(lcia_df, lcia_agg_col=None):
-    group_cols = ["polymer", "impact_method", "unit"]
+Y_LABELS = {"product_name": "Product", "polymer": "Polymer"}
+
+
+def aggregate_lcia(lcia_df, lcia_agg_col=None, y_col="product_name"):
+    group_cols = [y_col, "impact_method", "unit"]
 
     if lcia_agg_col is not None:
         agg_col_lcia = AGGREGATION_COLS_LCIA[lcia_agg_col]
@@ -446,60 +449,46 @@ def aggregate_lcia(lcia_df, lcia_agg_col=None):
     return plot_lcia_df
 
 
+def plot_lcia(lcia_agg_col, LCI_LCIA_COLOR_PALETTE, plot_lcia_df, title_lcia,
+              y_col="product_name"):
+    plot_lcia_df = plot_lcia_df.copy()  # avoid mutating the caller's DataFrame
+    y_label = Y_LABELS.get(y_col, y_col)
 
-def plot_lcia(lcia_agg_col, LCI_LCIA_COLOR_PALETTE, plot_lcia_df, title_lcia):
+    unit_lcia = plot_lcia_df["unit"].dropna().unique()[0]
+
+    # Order of the bars: smallest total at the bottom, largest at the top
+    y_order_lcia = (
+        plot_lcia_df
+        .groupby(y_col)["impact_score"]
+        .sum()
+        .sort_values(ascending=True)
+        .index
+        .tolist()
+    )
 
     # Total results
     if lcia_agg_col is None:
-
-        polymer_order_lcia = (
-            plot_lcia_df
-            .groupby("polymer")["impact_score"]
-            .sum()
-            .sort_values(ascending=True)
-            .index
-            .tolist()
-        )
-
-        unit_lcia = plot_lcia_df["unit"].dropna().unique()[0]
-
         fig_lcia = px.bar(
             plot_lcia_df,
             x="impact_score",
-            y="polymer",
+            y=y_col,
             orientation="h",
             title=title_lcia,
             labels={
                 "impact_score": f"Impact score ({unit_lcia})",
-                "polymer": "Polymer",
+                y_col: y_label,
             },
-            category_orders={
-                "polymer": polymer_order_lcia,
-            },
+            category_orders={y_col: y_order_lcia},
             color_discrete_sequence=["orange"],
         )
 
     # Aggregated results
     else:
-
         agg_col_lcia = AGGREGATION_COLS_LCIA[lcia_agg_col]
 
         kwargs_lcia = {}
         if agg_col_lcia in LCI_LCIA_COLOR_PALETTE:
-            kwargs_lcia["color_discrete_map"] = (
-                LCI_LCIA_COLOR_PALETTE[agg_col_lcia]
-            )
-
-        polymer_order_lcia = (
-            plot_lcia_df
-            .groupby("polymer")["impact_score"]
-            .sum()
-            .sort_values(ascending=True)
-            .index
-            .tolist()
-        )
-
-        unit_lcia = plot_lcia_df["unit"].dropna().unique()[0]
+            kwargs_lcia["color_discrete_map"] = LCI_LCIA_COLOR_PALETTE[agg_col_lcia]
 
         stack_order_lcia = (
             plot_lcia_df
@@ -519,7 +508,7 @@ def plot_lcia(lcia_agg_col, LCI_LCIA_COLOR_PALETTE, plot_lcia_df, title_lcia):
         fig_lcia = px.bar(
             plot_lcia_df,
             x="impact_score",
-            y="polymer",
+            y=y_col,
             color=agg_col_lcia,
             orientation="h",
             barmode="stack",
@@ -527,10 +516,10 @@ def plot_lcia(lcia_agg_col, LCI_LCIA_COLOR_PALETTE, plot_lcia_df, title_lcia):
             labels={
                 agg_col_lcia: lcia_agg_col,
                 "impact_score": f"Impact score ({unit_lcia})",
-                "polymer": "Polymer",
+                y_col: y_label,
             },
             category_orders={
-                "polymer": polymer_order_lcia,
+                y_col: y_order_lcia,
                 agg_col_lcia: stack_order_lcia,
             },
             **kwargs_lcia,
@@ -539,35 +528,25 @@ def plot_lcia(lcia_agg_col, LCI_LCIA_COLOR_PALETTE, plot_lcia_df, title_lcia):
     # Common formatting
     fig_lcia.update_xaxes(
         tickformat=".2e",
-        tickfont=dict(
-            size=small_font_size,
-            color=color_text,
-        ),
+        tickfont=dict(size=small_font_size, color=color_text),
     )
 
     fig_lcia.update_yaxes(
         categoryorder="array",
-        categoryarray=polymer_order_lcia,
-        tickfont=dict(
-            size=small_font_size,
-            color=color_text,
-        ),
+        categoryarray=y_order_lcia,
+        automargin=True,  # leaves room for long product names
+        tickfont=dict(size=small_font_size, color=color_text),
     )
 
     fig_lcia.update_layout(
-        font=dict(
-            size=small_font_size,
-            color=very_dark,
-        ),
-        title=dict(
-            font=dict(size=big_font_size),
-        ),
+        font=dict(size=small_font_size, color=very_dark),
+        title=dict(font=dict(size=big_font_size)),
         xaxis_title=dict(
             text=f"Impact score ({unit_lcia})",
             font=dict(size=medium_font_size, color=color_text),
         ),
         yaxis_title=dict(
-            text="Polymer",
+            text=y_label,
             font=dict(size=medium_font_size, color=color_text),
         ),
         legend=dict(
@@ -576,11 +555,7 @@ def plot_lcia(lcia_agg_col, LCI_LCIA_COLOR_PALETTE, plot_lcia_df, title_lcia):
         ),
     )
 
-    fig_lcia.update_traces(
-        hoverlabel=dict(
-            font_size=small_font_size,
-        )
-    )
+    fig_lcia.update_traces(hoverlabel=dict(font_size=small_font_size))
 
     return fig_lcia
 
